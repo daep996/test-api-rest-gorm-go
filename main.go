@@ -2,18 +2,25 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/daep996/test-api-rest-gorm-go/db"
 	"github.com/daep996/test-api-rest-gorm-go/models"
 	"github.com/daep996/test-api-rest-gorm-go/routes"
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 )
 
 var PORT = 8080
 
 func main() {
 	fmt.Println("Init!")
+
+	errenv := godotenv.Load()
+	if errenv != nil {
+		log.Fatal("Error loading .env file")
+	}
 
 	db.DBConnection()
 	db.DB.AutoMigrate(models.User{})
